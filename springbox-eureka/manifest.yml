@@ -1,0 +1,7 @@
+---
+applications:
+- name: springbox-eureka
+  host: springbox-eureka-${random-word}
+  memory: 512M
+  instances: 1
+  path: target/springbox-eureka-0.0.1-SNAPSHOT.jar

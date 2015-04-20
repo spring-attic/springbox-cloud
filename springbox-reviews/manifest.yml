@@ -1,0 +1,13 @@
+---
+applications:
+- name: springbox-reviews
+  host: springbox-reviews-${random-word}
+  memory: 512M
+  instances: 1
+  path: target/springbox-reviews-0.0.1-SNAPSHOT.jar
+  services:
+    - springbox-reviews-db
+    - springbox-config-service
+    - springbox-cloud-bus-amqp
+    - springbox-service-registry
+    - sso

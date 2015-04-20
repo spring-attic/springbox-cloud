@@ -1,0 +1,15 @@
+---
+applications:
+- name: springbox-catalog
+  host: springbox-catalog-${random-word}
+  memory: 512M
+  instances: 1
+  timeout: 90
+  path: target/springbox-catalog-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+    - springbox-catalog-db
+    - springbox-config-service
+    - springbox-cloud-bus-amqp
+    - springbox-service-registry

@@ -1,0 +1,15 @@
+---
+applications:
+- name: springbox-api-gateway
+  host: springbox-api-gateway-${random-word}
+  memory: 512M
+  instances: 1
+  timeout: 90
+  path: target/springbox-api-gateway-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+    - springbox-config-service
+    - springbox-cloud-bus-amqp
+    - springbox-service-registry
+    - sso
