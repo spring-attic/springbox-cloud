@@ -22,7 +22,7 @@ public class CatalogIntegrationService {
         return new ObservableResult<Movie>() {
             @Override
             public Movie invoke() {
-                final Movie movie = restTemplate.getForObject("http://springbox-api-gateway/catalog/movies/{mlId}", Movie.class, mlId);
+                final Movie movie = restTemplate.getForObject("http://springbox-catalog/movies/{mlId}", Movie.class, mlId);
                 log.debug(movie);
                 return movie;
             }

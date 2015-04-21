@@ -28,7 +28,7 @@ public class RecommendationsIntegrationService {
             public List<Movie> invoke() {
                 ParameterizedTypeReference<List<Movie>> responseType = new ParameterizedTypeReference<List<Movie>>() {
                 };
-                return restTemplate.exchange("http://springbox-api-gateway/recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
+                return restTemplate.exchange("http://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
     }
