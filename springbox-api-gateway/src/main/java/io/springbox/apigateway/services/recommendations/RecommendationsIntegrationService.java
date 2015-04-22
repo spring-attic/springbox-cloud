@@ -38,7 +38,7 @@ public class RecommendationsIntegrationService {
         return new ObservableResult<Boolean>() {
             @Override
             public Boolean invoke() {
-                return restTemplate.getForObject("http://springbox-api-gateway/recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
+                return restTemplate.getForObject("http://springbox-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
             }
         };
     }
