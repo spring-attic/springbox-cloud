@@ -7,7 +7,6 @@ security:
 
 zuul:
   routes:
-    springbox-api-gateway: /springbox-api-gateway/**
     springbox-catalog: /catalog/**
     springbox-reviews: /reviews/**
     user:
@@ -24,7 +23,3 @@ spring:
       clientSecret: acmesecret
     resource:
       userInfoUri: http://localhost:9999/uaa/user
-
-#springbox-api-gateway:
-#  ribbon:
-#    listOfServers: localhost:9000
