@@ -18,6 +18,7 @@
         <module>springbox-recommendations</module>
         <module>springbox-api-gateway</module>
         <module>springbox-auth-server</module>
+        <module>ui</module>
     </modules>
 
     <parent>

@@ -1,0 +1,7 @@
+<h1 ng-mode="genre">{{genre.name}}</h1>
+
+<ul ng-model="movies">
+    <li ng-repeat="movie in movies">
+        <a href="#/movie/{{movie.mlId}}">{{movie.title}}</a>
+    </li>
+</ul>
