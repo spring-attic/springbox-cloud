@@ -16,7 +16,6 @@ import rx.Observer;
 import java.security.Principal;
 
 @RestController
-@EnableOAuth2Resource
 public class ApiGatewayController {
 
     @Autowired
