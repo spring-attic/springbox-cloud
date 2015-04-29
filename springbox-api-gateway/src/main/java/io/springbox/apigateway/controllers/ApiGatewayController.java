@@ -5,6 +5,7 @@ import io.springbox.apigateway.services.catalog.CatalogIntegrationService;
 import io.springbox.apigateway.services.recommendations.RecommendationsIntegrationService;
 import io.springbox.apigateway.services.reviews.ReviewsIntegrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import rx.Observer;
 import java.security.Principal;
 
 @RestController
+@EnableOAuth2Resource
 public class ApiGatewayController {
 
     @Autowired

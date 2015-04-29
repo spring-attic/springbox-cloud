@@ -1,4 +1,4 @@
-angular.module('hello', ['ngRoute']).config(function ($routeProvider) {
+angular.module('hello', ['ngRoute']).config(function ($routeProvider,$httpProvider) {
 
     $routeProvider.when('/', {
         templateUrl: 'home.html',
@@ -20,11 +20,14 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider) {
             templateUrl: 'createReview.html',
             controller: 'createReview'
         })
+
         .otherwise('/');
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 }).controller('navigation',
 
     function ($rootScope, $scope, $http, $location, $route, userStore) {
+
 
         $scope.tab = function (route) {
             return $route.current && route === $route.current.controller;

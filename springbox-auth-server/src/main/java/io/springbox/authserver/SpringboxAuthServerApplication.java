@@ -48,6 +48,8 @@ public class SpringboxAuthServerApplication extends WebMvcConfigurerAdapter {
             endpoints.authenticationManager(authenticationManager);
         }
 
+
+
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()

@@ -3,6 +3,7 @@ package io.springbox.recommendations.controllers;
 import io.springbox.recommendations.domain.Likes;
 import io.springbox.recommendations.repositories.LikesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@EnableOAuth2Resource
 public class LikesController {
 
     @Autowired
