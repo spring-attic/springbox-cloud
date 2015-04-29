@@ -3,8 +3,10 @@ package io.springbox.apigateway.services.reviews;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rx.Observable;
@@ -16,7 +18,8 @@ import java.util.List;
 public class ReviewsIntegrationService {
 
     @Autowired
-    RestTemplate restTemplate;
+    @LoadBalanced
+    OAuth2RestOperations restTemplate;
 
     @HystrixCommand(fallbackMethod = "stubReviews")
     public Observable<List<Review>> reviewsFor(String mlId) {

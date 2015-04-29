@@ -2,13 +2,17 @@ package io.springbox.apigateway.controllers;
 
 import io.springbox.apigateway.domain.MovieDetails;
 import io.springbox.apigateway.services.catalog.CatalogIntegrationService;
+import io.springbox.apigateway.services.catalog.Movie;
 import io.springbox.apigateway.services.recommendations.RecommendationsIntegrationService;
 import io.springbox.apigateway.services.reviews.ReviewsIntegrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.async.DeferredResult;
 import rx.Observable;
 import rx.Observer;
@@ -27,10 +31,12 @@ public class ApiGatewayController {
     @Autowired
     RecommendationsIntegrationService recommendationsIntegrationService;
 
+
     @RequestMapping("/movie/{mlId}")
     public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId,
                                                      Principal principal) {
         Observable<MovieDetails> movieDetails = anonymousMovieDetails(mlId);
+
 
         if (principal != null) {
             String userName = principal.getName();
