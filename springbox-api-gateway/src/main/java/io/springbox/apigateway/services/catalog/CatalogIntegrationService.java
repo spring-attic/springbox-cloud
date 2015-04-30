@@ -1,6 +1,7 @@
 package io.springbox.apigateway.services.catalog;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +21,12 @@ public class CatalogIntegrationService {
     @LoadBalanced
     OAuth2RestOperations restTemplate;
 
-    @HystrixCommand(fallbackMethod = "stubMovie")
+    @HystrixCommand(fallbackMethod = "stubMovie",
+                    commandProperties = {
+                            @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
+                    }
+    )
+
     public Observable<Movie> getMovie(final String mlId) {
         return new ObservableResult<Movie>() {
             @Override

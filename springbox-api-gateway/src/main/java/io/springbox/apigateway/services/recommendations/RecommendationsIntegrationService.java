@@ -24,8 +24,9 @@ public class RecommendationsIntegrationService {
 
     @HystrixCommand(fallbackMethod = "stubRecommendations",
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-            })
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
+                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
+                            })
     public Observable<List<Movie>> getRecommendations(final String mlId) {
         return new ObservableResult<List<Movie>>() {
             @Override

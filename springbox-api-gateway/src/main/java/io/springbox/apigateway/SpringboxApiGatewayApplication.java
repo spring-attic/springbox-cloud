@@ -14,7 +14,9 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.Filter;
@@ -48,9 +50,10 @@ public class SpringboxApiGatewayApplication  {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.logout().and().antMatcher("/**").authorizeRequests()
-                    .antMatchers("/index.html", "/home.html", "/", "/login").permitAll()
+                    .antMatchers("/index.html", "/home.html", "/", "/login", "/beans").permitAll()
                     .anyRequest().authenticated().and().csrf()
                     .csrfTokenRepository(csrfTokenRepository()).and()
+                    .addFilterBefore(new RequestContextFilter(), HeaderWriterFilter.class)
                     .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
         }
 

@@ -1,6 +1,7 @@
 package io.springbox.apigateway.services.reviews;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -21,7 +22,11 @@ public class ReviewsIntegrationService {
     @LoadBalanced
     OAuth2RestOperations restTemplate;
 
-    @HystrixCommand(fallbackMethod = "stubReviews")
+    @HystrixCommand(fallbackMethod = "stubReviews",
+                    commandProperties = {
+                            @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
+                    }
+    )
     public Observable<List<Review>> reviewsFor(String mlId) {
         return new ObservableResult<List<Review>>() {
             @Override
