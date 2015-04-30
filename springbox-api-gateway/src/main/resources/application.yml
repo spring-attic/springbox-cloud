@@ -9,10 +9,11 @@ zuul:
   routes:
     springbox-catalog: /catalog/**
     springbox-reviews: /reviews/**
+    springbox-recommendations: /recommendations/**
     user:
       path: /user/**
       url: http://localhost:9999/uaa/user
-    springbox-recommendations: /recomendations/**
+
 
 spring:
   oauth2:
@@ -32,4 +33,6 @@ spring:
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
+    org.springframework.cloud.netflix: INFO
+    com.netflix.zuul: INFO
