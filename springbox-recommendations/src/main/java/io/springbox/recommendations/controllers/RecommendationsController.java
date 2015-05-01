@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +42,7 @@ public class RecommendationsController {
     }
 
     @RequestMapping(value = "/recommendations/forUser/{userName}", method = RequestMethod.GET)
+    @PreAuthorize("#userName == authentication.name")
     public Iterable<Movie> recommendedMoviesForUser(@PathVariable String userName) {
         return movieRepository.recommendedMoviesFor(userName);
     }
