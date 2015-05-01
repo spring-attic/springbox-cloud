@@ -1,9 +1,9 @@
 <div ng-model="movie">
 
     <h1>{{movie.title}}
-        <span ng-show="authenticated">
-            <button ng-click="like()" type="button" class="btn btn-default" ng-show="!movie.likes">Like</button>
-            <button type="button" class="btn btn-info" ng-show="movie.likes" disabled="disabled">Liked!</button>
+        <span>
+            <button ng-click="like()" type="button" class="btn btn-default" ng-disabled="!authenticated" ng-hide="movie.likes">Like</button>
+            <button type="button" class="btn btn-info" ng-show="authenticated && movie.likes" disabled="disabled">Liked!</button>
         </span>
     </h1>
 
@@ -13,9 +13,7 @@
     </ul>
 
     <h2>Reviews:</h2>
-    <p ng-show="authenticated">
-        <a href="#/movie/{{movie.mlId}}/review" class="btn btn-primary">Add Review</a>
-    </p>
+    <a href="#/movie/{{movie.mlId}}/review" ng-disabled="!authenticated" class="btn btn-primary">Add Review</a>
 </div>
 
 <div class="list-group" ng-model="movie">

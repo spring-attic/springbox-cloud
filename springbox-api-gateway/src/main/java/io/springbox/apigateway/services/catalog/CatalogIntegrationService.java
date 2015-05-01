@@ -9,24 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import rx.Observable;
 
 @Service
 public class CatalogIntegrationService {
 
-    Log log = LogFactory.getLog(CatalogIntegrationService.class);
+    private Log log = LogFactory.getLog(CatalogIntegrationService.class);
 
     @Autowired
     @LoadBalanced
-    OAuth2RestOperations restTemplate;
+    private OAuth2RestOperations restTemplate;
 
     @HystrixCommand(fallbackMethod = "stubMovie",
-                    commandProperties = {
-                            @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
-                    }
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE")
+            }
     )
-
     public Observable<Movie> getMovie(final String mlId) {
         return new ObservableResult<Movie>() {
             @Override
@@ -38,6 +36,7 @@ public class CatalogIntegrationService {
         };
     }
 
+    @SuppressWarnings("unused")
     private Movie stubMovie(final String mlId) {
         Movie stub = new Movie();
         stub.setMlId(mlId);
