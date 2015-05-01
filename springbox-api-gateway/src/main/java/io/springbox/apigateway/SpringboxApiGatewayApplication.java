@@ -50,7 +50,7 @@ public class SpringboxApiGatewayApplication  {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.logout().and().antMatcher("/**").authorizeRequests()
-                    .antMatchers("/index.html", "/home.html", "/", "/login", "/beans").permitAll()
+                    .antMatchers("/index.html", "/home.html", "/", "/login", "/beans", "/catalog/**").permitAll()
                     .anyRequest().authenticated().and().csrf()
                     .csrfTokenRepository(csrfTokenRepository()).and()
                     .addFilterBefore(new RequestContextFilter(), HeaderWriterFilter.class)
