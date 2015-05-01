@@ -14,7 +14,6 @@ zuul:
       path: /user/**
       url: http://localhost:9999/uaa/user
 
-
 spring:
   oauth2:
     sso:
@@ -26,10 +25,8 @@ spring:
       userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
-
     resource:
       userInfoUri: http://localhost:9999/uaa/user
-
 
 logging:
   level:

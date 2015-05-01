@@ -1,10 +1,10 @@
 <div ng-model="movie">
 
     <h1>{{movie.title}}
-            <span ng-show="authenticated">
-                <button ng-click="like()" type="button" class="btn btn-default" ng-show="!movie.likes">Like</button>
-                <button type="button" class="btn btn-info" ng-show="movie.likes" disabled="disabled">Liked!</button>
-            </span>
+        <span ng-show="authenticated">
+            <button ng-click="like()" type="button" class="btn btn-default" ng-show="!movie.likes">Like</button>
+            <button type="button" class="btn btn-info" ng-show="movie.likes" disabled="disabled">Liked!</button>
+        </span>
     </h1>
 
     <h2>Genres:</h2>
@@ -13,7 +13,6 @@
     </ul>
 
     <h2>Reviews:</h2>
-
     <p ng-show="authenticated">
         <a href="#/movie/{{movie.mlId}}/review" class="btn btn-primary">Add Review</a>
     </p>

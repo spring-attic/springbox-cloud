@@ -1,0 +1,23 @@
+<div class="col-md-6">
+    <h1>Movie Genres</h1>
+
+    <ul ng-model="genres">
+        <li ng-repeat="genre in genres">
+            <a href="#/genre/{{genre.mlId}}">{{genre.name}}</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-6">
+    <h1>Recommendations for you</h1>
+    <div ng-show="authenticated">
+        <ul ng-model="recommendations">
+            <li ng-repeat="recommendation in recommendations">
+                <a href="#/movie/{{recommendation.mlId}}">{{recommendation.title}}</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-hide="authenticated">
+        Please <a href="login">log in</a> to see recommendations
+    </div>
+</div>
