@@ -2,6 +2,8 @@ package io.springbox.recommendations.controllers;
 
 import io.springbox.recommendations.domain.Likes;
 import io.springbox.recommendations.repositories.LikesRepository;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableOAuth2Resource
 public class LikesController {
 
+    Log log = LogFactory.getLog(LikesController.class);
+
     @Autowired
     LikesRepository likesRepository;
 
@@ -27,7 +31,9 @@ public class LikesController {
 
     @RequestMapping(value = "/does/{userName}/like/{mlId}", method = RequestMethod.GET)
     public ResponseEntity<Boolean> likesFor(@PathVariable("mlId") String mlId, @PathVariable("userName") String userName) {
+        log.debug(String.format("/does/%s/like/%s endpoint requested!", userName, mlId));
         int likes = likesRepository.likesFor(mlId, userName).size();
+        log.debug(String.format("Result of %s like %s: %s", userName, mlId, likes));
         if (likes > 0) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

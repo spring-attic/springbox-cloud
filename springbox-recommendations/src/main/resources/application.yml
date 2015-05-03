@@ -7,3 +7,4 @@ spring:
 logging:
   logging:
     org.springframework.web: DEBUG
+    io.springbox.recommendations: DEBUG

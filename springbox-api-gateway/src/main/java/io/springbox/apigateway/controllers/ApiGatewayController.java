@@ -4,7 +4,11 @@ import io.springbox.apigateway.domain.MovieDetails;
 import io.springbox.apigateway.services.catalog.CatalogIntegrationService;
 import io.springbox.apigateway.services.recommendations.RecommendationsIntegrationService;
 import io.springbox.apigateway.services.reviews.ReviewsIntegrationService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +21,8 @@ import java.security.Principal;
 @RestController
 public class ApiGatewayController {
 
+    Log log = LogFactory.getLog(ApiGatewayController.class);
+
     @Autowired
     CatalogIntegrationService catalogIntegrationService;
 
@@ -28,11 +34,17 @@ public class ApiGatewayController {
 
     @RequestMapping("/movie/{mlId}")
     public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId,
-                                                     Principal principal) {
+                                                     @AuthenticationPrincipal Principal principal) {
+
+        log.debug(String.format("Loading anonymous movie details for mlId: %s", mlId));
+
         Observable<MovieDetails> movieDetails = anonymousMovieDetails(mlId);
 
         if (principal != null) {
             String userName = principal.getName();
+
+            log.debug(String.format("Loading details for mlId: %s for username: %s", mlId, userName));
+
             movieDetails = Observable.zip(
                     movieDetails,
                     recommendationsIntegrationService.likes(userName, mlId),
