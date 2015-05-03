@@ -43,7 +43,7 @@ public class RecommendationsIntegrationService {
         };
     }
 
-    @HystrixCommand(fallbackMethod = "stubLikes")
+    @HystrixCommand(fallbackMethod = "stubLikes", commandProperties = { @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE")})
     public Observable<Boolean> likes(final String userName, final String mlId) {
         return new ObservableResult<Boolean>() {
             @Override
