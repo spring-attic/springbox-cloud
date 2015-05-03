@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -22,6 +23,11 @@ public class RecommendationsIntegrationService {
     @LoadBalanced
     OAuth2RestOperations restTemplate;
 
+    @Autowired
+    @Qualifier("loadBalancedRestTemplate")
+    @LoadBalanced
+    RestTemplate unsecuredTemplate;
+
     @HystrixCommand(fallbackMethod = "stubRecommendations",
             commandProperties = {
                     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
@@ -33,7 +39,7 @@ public class RecommendationsIntegrationService {
             public List<Movie> invoke() {
                 ParameterizedTypeReference<List<Movie>> responseType = new ParameterizedTypeReference<List<Movie>>() {
                 };
-                return restTemplate.exchange("http://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
+                return unsecuredTemplate.exchange("http://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
     }

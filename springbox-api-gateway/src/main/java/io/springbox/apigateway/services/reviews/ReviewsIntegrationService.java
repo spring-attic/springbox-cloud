@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -19,8 +20,9 @@ import java.util.List;
 public class ReviewsIntegrationService {
 
     @Autowired
+    @Qualifier("loadBalancedRestTemplate")
     @LoadBalanced
-    OAuth2RestOperations restTemplate;
+    RestTemplate restTemplate;
 
     @HystrixCommand(fallbackMethod = "stubReviews",
                     commandProperties = {
