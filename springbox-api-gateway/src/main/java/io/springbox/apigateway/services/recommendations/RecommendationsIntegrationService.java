@@ -3,6 +3,8 @@ package io.springbox.apigateway.services.recommendations;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class RecommendationsIntegrationService {
+
+    Log log = LogFactory.getLog(RecommendationsIntegrationService.class);
 
     @Autowired
     @LoadBalanced
@@ -38,6 +42,7 @@ public class RecommendationsIntegrationService {
             public List<Movie> invoke() {
                 ParameterizedTypeReference<List<Movie>> responseType = new ParameterizedTypeReference<List<Movie>>() {
                 };
+                log.debug(String.format("Calling springbox-recommendations service to load recommendations for mlId: %s", mlId));
                 return unsecuredTemplate.exchange("http://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
@@ -48,7 +53,10 @@ public class RecommendationsIntegrationService {
         return new ObservableResult<Boolean>() {
             @Override
             public Boolean invoke() {
-                return restTemplate.getForObject("http://springbox-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
+                log.debug(String.format("Calling springbox-recommendations service to load like answer for mlId: %s and movie: %s", mlId, userName));
+                Boolean answer = restTemplate.getForObject("http://springbox-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
+                log.debug(String.format("Answer from springbox-recommendations service for mlId: %s and movie: %s = %s", mlId, userName, answer));
+                return answer;
             }
         };
     }
