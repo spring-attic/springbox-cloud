@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rx.Observable;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -21,7 +20,7 @@ public class RecommendationsIntegrationService {
 
     @Autowired
     @LoadBalanced
-    OAuth2RestOperations restTemplate;
+    private OAuth2RestOperations restTemplate;
 
     @Autowired
     @Qualifier("loadBalancedRestTemplate")
@@ -31,8 +30,8 @@ public class RecommendationsIntegrationService {
     @HystrixCommand(fallbackMethod = "stubRecommendations",
             commandProperties = {
                     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
-                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
-                            })
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE")
+            })
     public Observable<List<Movie>> getRecommendations(final String mlId) {
         return new ObservableResult<List<Movie>>() {
             @Override
@@ -54,16 +53,12 @@ public class RecommendationsIntegrationService {
         };
     }
 
+    @SuppressWarnings("unused")
     private List<Movie> stubRecommendations(final String mlId) {
-        Movie one = new Movie();
-        one.setMlId("25");
-        one.setMlId("A movie which doesn't exist");
-        Movie two = new Movie();
-        two.setMlId("26");
-        two.setMlId("A movie about nothing");
-        return Arrays.asList(one, two);
+        return null;
     }
 
+    @SuppressWarnings("unused")
     private Boolean stubLikes(final String userName, final String mlId) {
         return false;
     }

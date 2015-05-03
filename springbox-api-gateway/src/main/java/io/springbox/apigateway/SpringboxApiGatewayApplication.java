@@ -38,8 +38,6 @@ public class SpringboxApiGatewayApplication  {
         SpringApplication.run(SpringboxApiGatewayApplication.class, args);
     }
 
-
-
     @Configuration
     protected static class SecurityConfiguration extends OAuth2SsoConfigurerAdapter {
 
@@ -52,7 +50,7 @@ public class SpringboxApiGatewayApplication  {
         public void configure(HttpSecurity http) throws Exception {
             http.logout().and().antMatcher("/**").authorizeRequests()
                     .antMatchers("/index.html", "/home.html", "/", "/login", "/beans").permitAll()
-                    .antMatchers(HttpMethod.GET, "/recommendations/**","/people/**","/movie/**","/likes/**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/recommendations/**","/reviews/**","/people/**","/movie/**","/catalog/**","/likes/**").permitAll()
                     .anyRequest().authenticated().and().csrf()
                     .csrfTokenRepository(csrfTokenRepository()).and()
                     .addFilterBefore(new RequestContextFilter(), HeaderWriterFilter.class)
