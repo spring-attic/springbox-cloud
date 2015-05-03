@@ -28,8 +28,10 @@ spring:
     resource:
       userInfoUri: http://localhost:9999/uaa/user
 
+
 logging:
   level:
     org.springframework.security: INFO
     org.springframework.cloud.netflix: INFO
     com.netflix.zuul: INFO
+    io.springbox.apigateway: DEBUG
