@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class GraphDatabaseServiceInfoCreator extends CloudFoundryServiceInfoCreator<GraphDatabaseServiceInfo> {
     public GraphDatabaseServiceInfoCreator() {
-        super(new Tags("pivotal", "neo4j"), "neo4j");
+        super(new Tags("neo4j"), "neo4j");
     }
 
     @Override
@@ -16,8 +16,9 @@ public class GraphDatabaseServiceInfoCreator extends CloudFoundryServiceInfoCrea
         Map<String, Object> credentials = (Map<String, Object>) serviceData.get("credentials");
         String id = (String) serviceData.get("name");
 
-        if (uriKeyMatchesScheme(serviceData)) {
-            return new GraphDatabaseServiceInfo(id, getStringFromCredentials(credentials, "neo4jUri"));
+        String uri = getUriFromCredentials(credentials);
+        if (uri != null) {
+            return new GraphDatabaseServiceInfo(id, uri);
         } else {
             String host = getStringFromCredentials(credentials, "host");
             String username = getStringFromCredentials(credentials, "username");
