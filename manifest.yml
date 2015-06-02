@@ -1,0 +1,33 @@
+---
+applications:
+- name: springbox-catalog
+  path: ./springbox-catalog/target/springbox-catalog-0.0.1-SNAPSHOT.jar
+  services:
+  - sso
+  - springbox-config
+  - springbox-registry
+  - springbox-rabbitmq
+  - springbox-mysql
+- name: springbox-reviews
+  path: ./springbox-reviews/target/springbox-reviews-0.0.1-SNAPSHOT.jar
+  services:
+  - sso
+  - springbox-config
+  - springbox-registry
+  - springbox-rabbitmq
+  - springbox-mongodb
+- name: springbox-recommendations
+  path: ./springbox-recommendations/target/springbox-recommendations-0.0.1-SNAPSHOT.jar
+  services:
+  - sso
+  - springbox-config
+  - springbox-registry
+  - springbox-rabbitmq
+  - springbox-neo4j
+- name: springbox-api-gateway
+  path: ./springbox-api-gateway/target/springbox-api-gateway-0.0.1-SNAPSHOT.jar
+  services:
+  - sso
+  - springbox-config
+  - springbox-registry
+  - springbox-rabbitmq

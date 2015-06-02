@@ -1,9 +1,9 @@
 server:
   port: 8082
-spring:
-  oauth2:
-    resource:
-      userInfoUri: http://localhost:9999/uaa/user
+#spring:
+#  oauth2:
+#    resource:
+#      userInfoUri: http://localhost:9999/uaa/user
 logging:
   logging:
     org.springframework.web: DEBUG

@@ -20,14 +20,13 @@ spring:
       home:
         secure: false
         path: /,/**/*.html
-    client:
-      accessTokenUri: http://localhost:9999/uaa/oauth/token
-      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
-      clientId: acme
-      clientSecret: acmesecret
-    resource:
-      userInfoUri: http://localhost:9999/uaa/user
-
+#    client:
+#      accessTokenUri: http://localhost:9999/uaa/oauth/token
+#      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+#      clientId: acme
+#      clientSecret: acmesecret
+#    resource:
+#      userInfoUri: http://localhost:9999/uaa/user
 
 logging:
   level:
@@ -35,3 +34,13 @@ logging:
     org.springframework.cloud.netflix: INFO
     com.netflix.zuul: INFO
     io.springbox.apigateway: DEBUG
+
+---
+
+spring:
+  profiles: cloud
+
+zuul:
+  routes:
+    user:
+      url: ${vcap.services.${spring.oauth2.sso.serviceId:sso}.credentials.userInfoUri}
