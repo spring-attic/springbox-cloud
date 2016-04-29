@@ -9,7 +9,7 @@
 . Download and install the following services:
 .. https://www.rabbitmq.com/download.html[RabbitMQ]
 .. https://www.mongodb.org/downloads[MongoDB]
-.. http://neo4j.com/download/other-releases/[Neo4J Community Editioni] - version 2.1.x - Cypher changes won't make it possible to work with 2.2.x
+.. http://neo4j.com/download/other-releases/[Neo4J Community Edition] - version 2.1.x - Cypher changes won't make it possible to work with 2.2.x
 
 . Either from the IDE or the command line (i.e. `java -jar target/appname.jar`), run the applications in the following order:
 .. `springbox-config-server`
