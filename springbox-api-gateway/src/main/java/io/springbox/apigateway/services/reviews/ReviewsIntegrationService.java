@@ -35,7 +35,7 @@ public class ReviewsIntegrationService {
             public List<Review> invoke() {
                 ParameterizedTypeReference<List<Review>> responseType = new ParameterizedTypeReference<List<Review>>() {
                 };
-                return restTemplate.exchange("http://springbox-reviews/reviews/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
+                return restTemplate.exchange("https://springbox-reviews/reviews/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
     }
