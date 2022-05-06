@@ -43,7 +43,7 @@ public class RecommendationsIntegrationService {
                 ParameterizedTypeReference<List<Movie>> responseType = new ParameterizedTypeReference<List<Movie>>() {
                 };
                 log.debug(String.format("Calling springbox-recommendations service to load recommendations for mlId: %s", mlId));
-                return unsecuredTemplate.exchange("http://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
+                return unsecuredTemplate.exchange("https://springbox-recommendations/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
     }
@@ -54,7 +54,7 @@ public class RecommendationsIntegrationService {
             @Override
             public Boolean invoke() {
                 log.debug(String.format("Calling springbox-recommendations service to load like answer for mlId: %s and movie: %s", mlId, userName));
-                Boolean answer = restTemplate.getForObject("http://springbox-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
+                Boolean answer = restTemplate.getForObject("https://springbox-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
                 log.debug(String.format("Answer from springbox-recommendations service for mlId: %s and movie: %s = %s", mlId, userName, answer));
                 return answer;
             }
