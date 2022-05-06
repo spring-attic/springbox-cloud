@@ -22,9 +22,16 @@
 .. `springbox-recommendations`
 .. `springbox-api-gateway`
 
-. Load data into the reviews DB by running `springbox-reviews/scripts/loadReviews.sh`.
+. For the scripts to work, you need to install `jq` which is a sed-like tool for working with JSON data. You can find it [here](https://stedolan.github.io/jq/download/).
+. Load data into the reviews DB by running springbox-reviews/scripts/loadReviews.sh.
 
-. Load data into the recommendations DB by running `springbox-recommendations/scripts/loadGraph.sh`.
+    cd springbox-reviews/scripts/
+    ./loadReviews.sh localhost 9999 localhost 8081
+
+. Load data into the recommendations DB by running springbox-recommendations/scripts/loadGraph.sh.
+
+    cd springbox-recommendations/scripts/
+    ./loadGraph.sh localhost 9999 localhost 8082
 
 . Visit http://localhost:9000 and you should see something like the following:
 +
